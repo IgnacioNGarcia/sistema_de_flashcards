@@ -80,7 +80,7 @@ src/main/java/com/flashcards/
 ├── repository/       # Repositorios de datos
 ├── service/          # Lógica de negocio
 ├── strategy/         # Patrones de estrategia
-└── tester/           # Pruebas
+└── tester/           # Nombre dudoso, es la interfaz de testear las cards, por cli, api o lo que pinte
 ```
 
 ## Convenciones de Código
