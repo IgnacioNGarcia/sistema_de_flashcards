@@ -1,0 +1,197 @@
+@startuml sistema_flashcards
+
+
+package "Sistema de Flashcards" {
+
+    class Flashcard {
+        -id
+        -front : String
+        -back : String
+        -createdAt : LocalDateTime
+        -updatedAt : LocalDateTime
+        -estrategia_de_repeticion : EstrategiaDeRepeticion
+        -fecha_de_ultima_revision : LocalDateTime
+
+        +setId(id: int)
+        +getFront() : String
+        +getBack() : String
+        +getCreatedAt() : LocalDateTime
+        +getUpdatedAt() : LocalDateTime
+        +getEstrategiaDeRepeticion() : EstrategiaDeRepeticion
+        +getFechaDeUltimaRevision() : LocalDateTime
+        
+
+    }
+
+    interface EstrategiaDeRepeticion {
+        +necesitaRevision(fecha_de_ultima_revision: LocalDateTime) : boolean
+    }
+
+
+    together {
+        class EstrategiaDeRepeticionProximoRepaso implements EstrategiaDeRepeticion {
+            +necesitaRevision(fecha_de_ultima_revision: LocalDateTime) : boolean
+        }
+
+        class EstrategiaDeRepeticionDiaSiguiente implements EstrategiaDeRepeticion {
+            +necesitaRevision(fecha_de_ultima_revision: LocalDateTime) : boolean
+        }
+
+        class EstrategiaDeRepeticionNuncaMas implements EstrategiaDeRepeticion {
+            +necesitaRevision(fecha_de_ultima_revision: LocalDateTime) : boolean
+        }
+
+        class EstrategiaDeRepeticionSemanal implements EstrategiaDeRepeticion {
+            +necesitaRevision(fecha_de_ultima_revision: LocalDateTime) : boolean
+        }
+    }
+}
+
+
+class Deck{
+    -id
+    -nombre : String
+    -descripcion : String
+    -createdAt : LocalDateTime
+    -updatedAt : LocalDateTime
+    -flashcards : List<Flashcard>
+
+    +getId() : int
+    +getNombre() : String
+    +getDescripcion() : String
+    +getCreatedAt() : LocalDateTime
+    +getUpdatedAt() : LocalDateTime
+    +getFlashcards() : List<Flashcard>
+}
+
+package "Testers" {
+    abstract class ABCTester{
+        -deck : Deck
+        -actualizadorDeCards : ServicioDeCards //Servicio que actualiza estrategia de repeticion o fecha de revision con el repositorio asignado de las cards
+        -deckTemporal : Deck
+
+
+        +getDeck() : Deck
+        +setDeck(deck: Deck)
+        +getDeckTemporal() : Deck Revisa las estrategias de repeticion de los flashcards y crea un deck temporal con las cards que necesitan revision
+        +setDeckTemporal(deckTemporal: Deck)
+        +setServicioDeCards(servicioDeCards: ServicioDeCards)
+        +getServicioDeCards() : ServicioDeCards
+
+
+        +testear() 'Testea las cards del deck temporal y actualiza la estrategia de repeticion de las cards que fallaron
+        +mostrarFrenteCard(flashcard: Flashcard) 'Muestra el frente de una card
+        +mostrarReversoCard(flashcard: Flashcard) 'Muestra el reverso de una card    
+        +updateCard(flashcard: Flashcard) 'Actualiza una card con el servicio de cards
+    }
+
+    class CliTester extends ABCTester{
+        +testear()
+    }
+
+    class ApiTester extends ABCTester{
+        +testear()
+    }
+
+}
+
+package "Repositorio de Cards" {
+    interface IRepositorioDeCards{
+        +getCards(deckId : int) : List<Flashcard>
+        +updateCard(card: Flashcard)
+        +deleteCard(card: Flashcard)
+    }
+
+    class RepositorioDeCardsPostgres implements IRepositorioDeCards{
+        +getCards(deckId : int) : List<Flashcard>
+        +updateCard(card: Flashcard)
+        +deleteCard(card: Flashcard)
+    }
+
+    class RepositorioDeCardsCSV implements IRepositorioDeCards{
+        +getCards() : List<Flashcard>
+        +updateCard(card: Flashcard) 
+        +deleteCard(card: Flashcard)
+    }
+
+    class RepositorioDeCardsJSON implements IRepositorioDeCards{
+        +getCards() : List<Flashcard>
+        +updateCard(card: Flashcard)
+        +deleteCard(card: Flashcard)
+    }
+}
+
+class ServicioDeCards{
+    -repositorioDeCards : IRepositorioDeCards
+
+    +setRepositorioDeCards(repositorioDeCards: IRepositorioDeCards)
+    +getRepositorioDeCards() : IRepositorioDeCards
+
+    +actualizarEstrategiaDeRepeticion(flashcard: Flashcard, estrategiaDeRepeticion: EstrategiaDeRepeticion)
+    +actualizarFechaDeUltimaRevision(flashcard: Flashcard, fechaDeUltimaRevision: LocalDateTime)
+
+    +getCards(deckId : int) : List<Flashcard>
+    +saveCard(card: Flashcard)
+    +updateCard(card: Flashcard)
+    +deleteCard(card: Flashcard)
+}
+
+
+package "Repositorio de Decks" {
+    interface IRepositorioDeDecks{
+        +getDeckById(id: int) : Deck
+        +saveDeck(deck: Deck)
+        +updateDeck(deck: Deck)
+        +deleteDeckById(id: int)
+    }
+
+    class RepositorioDeDecksPostgres implements IRepositorioDeDecks{
+        +getDeckById(id: int) : Deck
+        +saveDeck(deck: Deck)
+        +updateDeck(deck: Deck)
+        +deleteDeckById(id: int)
+    }
+
+    class RepositorioDeDecksCSV implements IRepositorioDeDecks{
+        +getDeckById(id: int) : Deck
+        +saveDeck(deck: Deck)
+        +updateDeck(deck: Deck)
+        +deleteDeckById(id: int)
+    }
+
+    class RepositorioDeDecksJSON implements IRepositorioDeDecks{
+        +getDeckById(id: int) : Deck
+        +saveDeck(deck: Deck)
+        +updateDeck(deck: Deck)
+        +deleteDeckById(id: int)
+    }
+}
+
+class ServicioDeDecks{
+    -repositorioDeDecks : IRepositorioDeDecks
+
+    +setRepositorioDeDecks(repositorioDeDecks: IRepositorioDeDecks)
+    +getRepositorioDeDecks() : IRepositorioDeDecks
+
+    +getDeckById(id: int) : Deck
+    +saveDeck(deck: Deck)
+    +updateDeck(deck: Deck)
+    +deleteDeckById(id: int)
+    +addFlashcardToDeck(deckId: int, flashcard: Flashcard)
+    +removeFlashcardFromDeck(deckId: int, flashcard: Flashcard)
+    +getFlashcardsFromDeck(deckId: int) : List<Flashcard>
+}
+
+
+
+
+Flashcard *-- EstrategiaDeRepeticion
+Deck *-- Flashcard
+Deck --> ServicioDeDecks
+ABCTester --> ServicioDeCards
+ABCTester *-- Deck
+ServicioDeCards --> IRepositorioDeCards
+ServicioDeDecks --> IRepositorioDeDecks
+    note bottom of Flashcard: Podemos meter un builder de cards para que directamente tenga opciones de crear card con la estrategia que querramos directo desde la construccion
+
+@enduml
