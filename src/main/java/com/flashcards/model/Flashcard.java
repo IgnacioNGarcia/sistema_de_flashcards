@@ -15,8 +15,32 @@ public class Flashcard {
     private String back;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String estrategiaDeRepeticion; //Esto va a haber que cambiarlo por una interfaz de estrategia de repeticion
+    private String estrategiaDeRepeticion; //Esto vamos a tener que cambiarlo por una interfaz de estrategia de repeticion
     private LocalDateTime fechaDeUltimaRevision;
+
+    public void setFechaDeUltimaRevision(LocalDateTime fechaDeUltimaRevision) {
+        this.fechaDeUltimaRevision = fechaDeUltimaRevision;
+    }
+
+    public void setEstrategiaDeRepeticion(String estrategiaDeRepeticion) {
+        this.estrategiaDeRepeticion = estrategiaDeRepeticion;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setBack(String back) {
+        this.back = back;
+    }
+
+    public void setFront(String front) {
+        this.front = front;
+    }
 
     public void setId(String id) {
         this.id = id;
