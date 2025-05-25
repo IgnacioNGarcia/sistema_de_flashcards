@@ -1,7 +1,5 @@
 package com.flashcards.repository;
-
 import java.util.List;
-
 import com.flashcards.model.Deck;
 
 public interface IRepositorioDeDecks {

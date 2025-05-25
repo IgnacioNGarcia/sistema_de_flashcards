@@ -1,12 +1,16 @@
 package com.flashcards.model;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+@Document(collection = "decks")
 @JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Deck {
-    private int id;
+    @Id
+    private String id;
+
     private String nombre;
     private String descripcion;
     private LocalDateTime createdAt;
@@ -15,17 +19,17 @@ public class Deck {
 
     public Deck() {}
 
-    public Deck(int id, String nombre, String descripcion) {
+    public Deck(String id, String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Profile("mongo") // Esto se activa cuando el perfil esta en JSON
+@Profile("mongo") // Esto se activa cuando el perfil esta en Mongo
 
 public class RepositorioDeCardsMongo implements IRepositorioDeCards {
     @Override

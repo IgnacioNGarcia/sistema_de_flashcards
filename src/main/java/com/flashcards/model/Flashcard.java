@@ -1,12 +1,16 @@
 package com.flashcards.model;
-
 import java.time.LocalDateTime;
 //import com.flashcards.strategy.EstrategiaDeRepeticion;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+@Document(collection = "flashcards")
 @JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Flashcard {
-    private int id;
+    @Id
+    private String id;
+
     private String front;
     private String back;
     private LocalDateTime createdAt;
@@ -14,11 +18,11 @@ public class Flashcard {
     private String estrategiaDeRepeticion; //Esto va a haber que cambiarlo por una interfaz de estrategia de repeticion
     private LocalDateTime fechaDeUltimaRevision;
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
