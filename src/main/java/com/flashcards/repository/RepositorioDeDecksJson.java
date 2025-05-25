@@ -57,12 +57,10 @@ public class RepositorioDeDecksJson implements IRepositorioDeDecks {
     }
 
     @Override
-    public Deck getDeckById(int id) {
+    public Deck getDeckById(String id) {
         //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getDeckById'");
     }
-
-
 
     @Override
     public void addDeck(Deck deck) {
@@ -77,7 +75,7 @@ public class RepositorioDeDecksJson implements IRepositorioDeDecks {
     }
 
     @Override
-    public void updateDeckById(int id, Deck deck) {
+    public void updateDeckById(String id, Deck deck) {
         //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateDeckById'");
     }
@@ -89,7 +87,7 @@ public class RepositorioDeDecksJson implements IRepositorioDeDecks {
     }
 
     @Override
-    public void deleteDeckById(int id) {
+    public void deleteDeckById(String id) {
         //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteDeckById'");
     }

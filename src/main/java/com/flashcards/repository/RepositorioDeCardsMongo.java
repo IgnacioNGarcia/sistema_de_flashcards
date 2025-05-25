@@ -1,6 +1,8 @@
 package com.flashcards.repository;
 import com.flashcards.model.Flashcard;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -8,21 +10,21 @@ import org.springframework.stereotype.Repository;
 @Profile("mongo") // Esto se activa cuando el perfil esta en Mongo
 
 public class RepositorioDeCardsMongo implements IRepositorioDeCards {
+    @Autowired
+    private IMongoCardRepo mongoCardRepo;
+
     @Override
-    public List<Flashcard> getCards(int deckId) {
-        // Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCards'");
+    public List<Flashcard> getCards(String deckId) {
+        return mongoCardRepo.findByDeckId(deckId);
     }
 
     @Override
     public void updateCard(Flashcard card) {
-        // Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateCard'");
+        mongoCardRepo.save(card); // Inserta o actualiza según el id
     }
 
     @Override
     public void deleteCard(Flashcard card) {
-        // Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteCard'");
+        mongoCardRepo.delete(card);
     }
 }

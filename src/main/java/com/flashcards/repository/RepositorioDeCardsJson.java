@@ -24,7 +24,7 @@ public class RepositorioDeCardsJson implements IRepositorioDeCards {
     }
 
     @Override
-    public List<Flashcard> getCards(int deckId) {
+    public List<Flashcard> getCards(String deckId) {
         try {
             File file = new File(jsonFilePath);
             if (!file.exists()) {
@@ -43,7 +43,7 @@ public class RepositorioDeCardsJson implements IRepositorioDeCards {
             // Convertir cada nodo del array a una Flashcard y filtrar por deckId
             List<Flashcard> filteredCards = new ArrayList<>();
             for (JsonNode cardNode : cardsNode) {
-                int cardDeckId = cardNode.get("deckId").asInt();
+                String cardDeckId = cardNode.get("deckId").asText();;
                 if (cardDeckId == deckId) { // Esto es para solo transformar en flashcards a las que son del deckId que le pasamos, no todas alpedo.
                     Flashcard card = objectMapper.treeToValue(cardNode, Flashcard.class);
                     filteredCards.add(card);

@@ -19,7 +19,7 @@ public class ServicioDeDecks {
         return repositorioDeDecks.getDecks();
     }
 
-    public Deck getDeckById(int id) {
+    public Deck getDeckById(String id) {
         return repositorioDeDecks.getDeckById(id);
     }
 
@@ -32,7 +32,7 @@ public class ServicioDeDecks {
         repositorioDeDecks.addDeck(deck);
     }
     
-    public void updateDeckById(int id, Deck deck) {
+    public void updateDeckById(String id, Deck deck) {
         repositorioDeDecks.updateDeckById(id, deck);
     }
 
@@ -40,7 +40,7 @@ public class ServicioDeDecks {
         repositorioDeDecks.deleteDeck(deck);
     }
     
-    public void deleteDeckById(int id) {
+    public void deleteDeckById(String id) {
         repositorioDeDecks.deleteDeckById(id);
     }
     
