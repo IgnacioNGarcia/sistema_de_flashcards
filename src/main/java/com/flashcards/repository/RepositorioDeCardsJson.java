@@ -1,14 +1,17 @@
 package com.flashcards.repository;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.flashcards.model.Flashcard;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
+
+@Repository
+@Profile("json") //Esto se activa cuando el perfil esta en JSON
 
 public class RepositorioDeCardsJson implements IRepositorioDeCards {
     private final String jsonFilePath;
@@ -21,7 +24,7 @@ public class RepositorioDeCardsJson implements IRepositorioDeCards {
     }
 
     @Override
-    public List<Flashcard> getCards(int deckId) {
+    public List<Flashcard> getCards(String deckId) {
         try {
             File file = new File(jsonFilePath);
             if (!file.exists()) {
@@ -40,7 +43,7 @@ public class RepositorioDeCardsJson implements IRepositorioDeCards {
             // Convertir cada nodo del array a una Flashcard y filtrar por deckId
             List<Flashcard> filteredCards = new ArrayList<>();
             for (JsonNode cardNode : cardsNode) {
-                int cardDeckId = cardNode.get("deckId").asInt();
+                String cardDeckId = cardNode.get("deckId").asText();;
                 if (cardDeckId == deckId) { // Esto es para solo transformar en flashcards a las que son del deckId que le pasamos, no todas alpedo.
                     Flashcard card = objectMapper.treeToValue(cardNode, Flashcard.class);
                     filteredCards.add(card);
@@ -57,13 +60,13 @@ public class RepositorioDeCardsJson implements IRepositorioDeCards {
 
     @Override
     public void updateCard(Flashcard card) {
-        // TODO Auto-generated method stub
+        // Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateCard'");
     }
 
     @Override
     public void deleteCard(Flashcard card) {
-        // TODO Auto-generated method stub
+        //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteCard'");
     }
 }

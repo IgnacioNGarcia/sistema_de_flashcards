@@ -1,16 +1,19 @@
 package com.flashcards.repository;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.flashcards.exceptions.DeckVacioException;
 import com.flashcards.exceptions.ArchivoNoEncontradoException;
 import com.flashcards.model.Deck;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
+
+@Repository
+@Profile("json") //Esto se activa cuando el perfil esta en JSON
 
 public class RepositorioDeDecksJson implements IRepositorioDeDecks {
     private final String jsonFilePath;
@@ -54,40 +57,38 @@ public class RepositorioDeDecksJson implements IRepositorioDeDecks {
     }
 
     @Override
-    public Deck getDeckById(int id) {
-        // TODO Auto-generated method stub
+    public Deck getDeckById(String id) {
+        //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getDeckById'");
     }
 
-
-
     @Override
     public void addDeck(Deck deck) {
-        // TODO Auto-generated method stub
+        //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addDeck'");
     }
 
     @Override
     public void updateDeck(Deck deck) {
-        // TODO Auto-generated method stub
+        //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateDeck'");
     }
 
     @Override
-    public void updateDeckById(int id, Deck deck) {
-        // TODO Auto-generated method stub
+    public void updateDeckById(String id, Deck deck) {
+        //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateDeckById'");
     }
 
     @Override
     public void deleteDeck(Deck deck) {
-        // TODO Auto-generated method stub
+        //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteDeck'");
     }
 
     @Override
-    public void deleteDeckById(int id) {
-        // TODO Auto-generated method stub
+    public void deleteDeckById(String id) {
+        //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteDeckById'");
     }
     

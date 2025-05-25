@@ -23,7 +23,7 @@ class RepositorioDeCardsJsonTest {
 
     @Test
     void testGetCardsDeck1() {
-        List<Flashcard> cards = repositorio.getCards(1);
+        List<Flashcard> cards = repositorio.getCards("1");
 
         assertEquals(3, cards.size());
 
