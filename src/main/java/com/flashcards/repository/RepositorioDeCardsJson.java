@@ -9,6 +9,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.flashcards.model.Flashcard;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
+
+@Repository
+@Profile("json") //Esto se activa cuando el perfil esta en JSON
 
 public class RepositorioDeCardsJson implements IRepositorioDeCards {
     private final String jsonFilePath;
@@ -57,13 +62,13 @@ public class RepositorioDeCardsJson implements IRepositorioDeCards {
 
     @Override
     public void updateCard(Flashcard card) {
-        // TODO Auto-generated method stub
+        // Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateCard'");
     }
 
     @Override
     public void deleteCard(Flashcard card) {
-        // TODO Auto-generated method stub
+        //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteCard'");
     }
 }
