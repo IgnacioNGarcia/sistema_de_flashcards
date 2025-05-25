@@ -17,6 +17,15 @@ public class Flashcard {
     private LocalDateTime updatedAt;
     private String estrategiaDeRepeticion; //Esto vamos a tener que cambiarlo por una interfaz de estrategia de repeticion
     private LocalDateTime fechaDeUltimaRevision;
+    private String deckId;
+
+    public String getDeckId() {
+        return deckId;
+    }
+
+    public void setDeckId(String deckId) {
+        this.deckId = deckId;
+    }
 
     public void setFechaDeUltimaRevision(LocalDateTime fechaDeUltimaRevision) {
         this.fechaDeUltimaRevision = fechaDeUltimaRevision;
